@@ -1,0 +1,41 @@
+T-SQL Case When Then Else End Kalýbý
+
+Select *From Personel
+
+Select
+Ad,Soyad,
+Case
+When Adres ='Osmaniye' Then 'Akdeniz' 
+Else Adres
+End
+from Personel
+
+Select * from Products
+
+Select ProductName,
+Case
+When UnitPrice Between 0 and 10 Then '0-10 arasý'
+When UnitPrice Between 11 and 20 Then '10-20 arasý'
+Else 'aralýk dýþý'
+End
+from Products
+
+WITH kullanýmý
+WITH kullanýmýnýn mantýðý; iç içe sorgularda, ayný sorgunun tekrar tekrar yazýlmasýný ortadan kaldýrmaktýr.
+WITH ile oluþturduðumuz tablo, localde tutulmaktadýr.
+
+With KategoriUrun(id,kategoriadi,ürünadi)
+as
+(
+Select c.CategoryID,CategoryName,ProductName from Products p inner join Categories c on c.CategoryID = p.CategoryID
+)
+
+Select kategoriadi,count(*) as kategori_ürünsayisi from KategoriUrun group by kategoriadi
+
+Subquery(Ýç içe sorgu)
+
+Select o.OrderID,o.OrderDate from Orders o join Employees e on o.EmployeeID = e.EmployeeID where e.FirstName ='Nancy'
+
+Select OrderID,OrderDate from Orders  where EmployeeID = (Select EmployeeID from Employees where FirstName='Nancy')
+
+Select ProductName from Products where CategoryID = (Select CategoryID from Categories where CategoryName='Beverages')
